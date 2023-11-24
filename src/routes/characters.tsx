@@ -1,43 +1,27 @@
-import { Card, Title, Container } from '@mantine/core';
-import React, { useState } from 'react';
-import bird from '../assets/bird.jpg';
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { Card, Title, Container, Flex, Skeleton } from '@mantine/core';
+import * as React from 'react';
+import { useQuery } from '../hooks/use-query.hook';
 
-interface Character {
+export interface Character {
 	id: number;
 	name: string;
 	image: string;
 }
 
 const Characters: React.FC = () => {
-	const [charactes, setCharacters] = useState<Character[]>([]);
-	const client = new ApolloClient({
-		uri: 'https://rickandmortyapi.com/graphql',
-		cache: new InMemoryCache(),
-	});
+	const { data: characters, loadig } = useQuery();
 
-	client
-		.query({
-			query: gql`
-				query ($id: ID!) {
-					character(id: $id) {
-						name
-						gender
-						image
-						origin {
-							type
-						}
-					}
-				}
-			`,
-			variables: {
-				id: 1,
-			},
-		})
-		.then((result) => console.log([result.character]));
+	if (loadig) {
+		return (
+			<Card>
+				<Skeleton height="50px" />
+				<Skeleton height="200px" />
+			</Card>
+		);
+	}
 	return (
-		<div>
-			{charactes?.map((char) => (
+		<Flex wrap="wrap">
+			{characters?.map((char) => (
 				<Card key={char?.id}>
 					<Title>{char?.name}</Title>
 					<Container>
@@ -45,7 +29,7 @@ const Characters: React.FC = () => {
 					</Container>
 				</Card>
 			))}
-		</div>
+		</Flex>
 	);
 };
 

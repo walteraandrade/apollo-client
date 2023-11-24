@@ -1,17 +1,23 @@
-import { Card, Title, Container } from '@mantine/core';
-import React from 'react';
-import bird from '../assets/bird2.jpg';
+import { Card, Title, Flex, Text } from '@mantine/core';
+import * as React from 'react';
 
+interface Episode {
+	id: number;
+	name: string;
+	air_date: string;
+}
 const Episodes: React.FC = () => {
+	const [episodes, setEpisodes] = React.useState<Episode[]>([]);
+
 	return (
-		<div>
-			<Card>
-				<Title>NiceBird</Title>
-				<Container>
-					<img src={bird} height="300px" width="200px" />
-				</Container>
-			</Card>
-		</div>
+		<Flex wrap="wrap">
+			{episodes.map((ep) => (
+				<Card key={ep.id}>
+					<Title>{ep.name}</Title>
+					<Text>{ep.air_date}</Text>
+				</Card>
+			))}
+		</Flex>
 	);
 };
 
