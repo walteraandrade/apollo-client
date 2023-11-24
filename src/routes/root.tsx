@@ -22,7 +22,7 @@ export const AppRoot = () => {
 			<AppShell.Navbar p="md">
 				Navbar
 				<a href="/characters">Characters</a>
-				<a href="/characters">Episódios</a>
+				<a href="/episodes">Episódios</a>
 			</AppShell.Navbar>
 			<AppShell.Main>
 				<Outlet />

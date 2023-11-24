@@ -1,6 +1,6 @@
 import { Card, Title, Container } from '@mantine/core';
 import React from 'react';
-import bird from '../assets/bird.jpg';
+import bird from '../assets/bird2.jpg';
 
 const Episodes: React.FC = () => {
 	return (
